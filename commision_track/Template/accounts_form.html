@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Accounts Panel - Ausizz Group</title>
+  <link rel="stylesheet" href="{% static 'commision/style_accounts.css' %}" />
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="{% static 'commision/logo.png' %}" alt="Ausizz Group Logo">
+    </div>
+    <h2>Accounts Data Entry</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <!-- Frozen Info loaded from database -->
+      <label>Student Name</label>
+      <input type="text" value="{{ student.name }}" readonly />
+
+      <label>Lead Code</label>
+      <input type="text" value="{{ student.lead_code }}" readonly />
+
+      <label>Provider Name</label>
+      <input type="text" value="{{ student.university }}" readonly />
+
+      <label>Number of Sem/Years</label>
+      <input type="text" value="{{ student.semesters }} Years" readonly />
+
+      <label>Tuition Fee</label>
+      <input type="text" value="AUD {{ student.tuition_fee }}" readonly />
+
+      <label>COE Issue Date</label>
+      <input type="text" value="AUD {{ student.coe_issue_date }}" readonly />
+
+      <label>Course Start Date</label>
+      <input type="text" value="AUD {{ student.course_start_date }}" readonly />
+
+      <label>Course End Date</label>
+      <input type="text" value="AUD {{ student.course_end_date }}" readonly />
+
+      <hr>
+
+      <h3 style="margin-top: 20px;">Accounts Information</h3>
+
+      <label>Claiming Branch</label>
+      <input type="text" name="claiming_branch" placeholder="Enter branch name" pattern="^[A-Za-z\s]+$" required />
+
+      <label>Commission Rate (%)</label>
+      <input type="number" step="0.01" name="commission_rate" placeholder="Enter rate e.g., 10" required />
+
+      <label>Commission Earned (in AUD)</label>
+      <input type="number" step="0.01" name="commission_earned" placeholder="e.g., 2800" required />
+
+      <label>GST</label>
+      <input type="number" step="0.01" name="gst" placeholder="e.g., 280.00" required />
+
+      <label>Total Commission (incl. GST)</label>
+      <input type="number" step="0.01" name="total_commission_inc_gst" placeholder="e.g., 3080.00" required />
+
+      <label>Commission Type</label>
+      <input type="text" name="commission_type" placeholder="e.g., Full, Partial" required />
+
+      <label>Amount</label>
+      <input type="number" step="0.01" name="amount" placeholder="e.g. AUD 45000" required />
+
+      <label>Bonus</label>
+      <input type="number" step="0.01" name="bonus" placeholder="e.g. AUD 4500"  required />
+
+      <label>Total</label>
+      <input type="number" step="0.01" name="total" placeholder="e.g. AUD 450000"  required />
+
+      <label>Amount Received</label>
+      <input type="number" step="0.01" name="amount_received" placeholder="e.g. AUD 45000" required />
+
+      <label>Remaining Balance</label>
+      <input type="number" step="0.01" name="remaining_balance" placeholder="e.g. AUD 45000" required />
+
+      <label>Comments by Accounts</label>
+      <input type="text" name="comments_by_accounts" placeholder="Optional" pattern="^[A-Za-z\s]+$" />
+
+      <label>Expected Date</label>
+      <input type="date" name="expected_date"  />
+      
+      <label>Cashback</label>
+      <input type="number" step="0.01" name="cashback" placeholder="e.g. AUD 250.00" />
+
+      <label>Cashback Paid</label>
+      <input type="number" step="0.01" name="cashback_paid" placeholder="e.g. AUD 100.00" />
+ 
+      <label>Cashback Amount</label>
+      <input type="number" step="0.01" name="cashback_amount" placeholder="e.g. AUD 4000"  />
+
+      <label>CB Payment Expected Date</label>
+      <input type="date" name="cb_payment_expected_date" />
+
+      <label>Net Profit</label>
+      <input type="number" step="0.01" name="net_profit" placeholder="e.g. AUD 4000" />
+
+      <label>Remark</label>
+      <input type="text" name="remark" placeholder="Optional" pattern="^[A-Za-z\s]+$" />
+
+      <label>COE Status</label>
+      <select name="coe_status" required>
+        <option value="">-- Select Status --</option>
+        <option value="Enrolled">Enrolled</option>
+        <option value="Not Enrolled">Not Enrolled</option>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+ 
+  </div>
+</body>
+</html>

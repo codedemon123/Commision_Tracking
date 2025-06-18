@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student List - Aussizz Group</title>
+  <link rel="stylesheet" href="{% static 'commision/style_accounts_first_page.css' %}" />
+</head>
+ <script>
+window.addEventListener('DOMContentLoaded', () => {
+  const flashes = document.querySelectorAll('.flash-message');
+  flashes.forEach(flash => {
+    setTimeout(() => {
+      flash.style.transition = 'opacity 0.5s ease';
+      flash.style.opacity = '0';
+      setTimeout(() => flash.remove(), 500);
+    }, 2000);
+  });
+});
+</script>
+<body>
+  {% if messages %}
+    {% for message in messages %}
+        <div class="flash-message">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+  <div class="container">
+    <h2>Student List</h2>
+
+    <!-- ✅ HEADER ROW -->
+    <div class="student-row header">
+      <div class="student-name">Name</div>
+      <div class="student-uni">University</div>
+      <div class="student-lead">Lead Code</div>
+      <div class="student-duration">Sem/Years</div>
+      <div class="student-passout">Tuition Fees</div>
+      <div class="student-status">Status</div> <!-- ✅ New Status Column -->
+      <div></div>
+    </div>
+
+    <!-- ✅ STUDENT ROWS -->
+    {% for student in students %}
+      <div class="student-row">
+        <div class="student-name">{{ student.name }}</div>
+        <div class="student-uni">{{ student.university }}</div>
+        <div class="student-lead">{{ student.lead_code }}</div>
+        <div class="student-duration">{{ student.semesters }}</div>
+        <div class="student-passout">{{ student.tuition_fee }}</div>
+
+        <!-- ✅ Commission Status Column -->
+        <!-- ✅ Commission Status Column -->
+        <div class="student-status">
+          {% if student.commissiondetails and student.commissiondetails.claiming_branch and student.commissiondetails.commission_rate and student.commissiondetails.commission_earned and student.commissiondetails.total_commission_inc_gst and student.commissiondetails.amount_received and student.commissiondetails.cb_payment_expected_date %}
+           <span style="color: green;">✔</span>
+          {% else %}
+           <span style="color: red;">✘</span>
+          {% endif %}
+        </div>
+
+
+        <!-- ✅ Add Info Button -->
+        <a href="{% url 'add-info' student.id %}" class="add-btn">Add Info</a>
+      </div>
+    {% empty %}
+      <p>No students found.</p>
+    {% endfor %}
+  </div>
+</body>
+</html>

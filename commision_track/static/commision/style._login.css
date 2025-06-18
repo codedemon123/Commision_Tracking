@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #ebe8e8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-container {
+  background: #ffffff;
+  padding: 40px;
+  padding-left:20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-container img {
+  max-width: 200px;
+  margin-bottom: 1px;
+}
+
+.login-container h2 {
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  align-items: center;
+  margin-right: 2px;
+}
+
+.login-container button {
+  width: 30%;
+  padding: 12px;
+  background-color: #0066cc;
+  color: white;
+  border: #3a16da;
+  margin-left: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: #004c99;
+}
+.footer-box {
+  margin-top: 20px;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  text-align: center;
+  box-shadow: none;
+  position: static;
+}
+
+
+.footer-box a {
+  color: #0066cc;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.footer-box a:hover {
+  text-decoration: underline;
+}
+.flash-message {
+      padding: 16px 24px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      max-width: 600px;
+      margin: 20px auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      opacity: 1;
+    }
+
+    .flash-message.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 2px solid #c3e6cb;
+    }
+
+    .flash-message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 2px solid #f5c6cb;
+    }

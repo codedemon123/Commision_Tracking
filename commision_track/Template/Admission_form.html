@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aussizz Group - Student Data Entry</title>
+  <link rel="stylesheet" href="{% static 'commision/style_Aemployee_form.css' %}" />
+   <script>
+window.addEventListener('DOMContentLoaded', () => {
+  const flashes = document.querySelectorAll('.flash-message');
+  flashes.forEach(flash => {
+    setTimeout(() => {
+      flash.style.transition = 'opacity 0.5s ease';
+      flash.style.opacity = '0';
+      setTimeout(() => flash.remove(), 500);
+    }, 2000);
+  });
+});
+</script>
+</head>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="flash-message">{{ message }}</div>
+    {% endfor %}
+     {% endif %}
+  <div class="container">
+    <div class="logo">
+      <img src="{% static 'commision/logo.png' %}" alt="Aussizz Group Logo" />
+    </div>
+    <h2>Student Data Entry</h2>
+   <form action="{% url 'add-student' %}" method="POST">     
+    {% csrf_token %}
+  <input type="text" name="name" placeholder="Student Name" required />
+  <input type="text" name="lead_code" placeholder="Lead Code" required />
+  <input type="text" name="lead_name" placeholder="Lead Name" required />
+  <label for="month"></label>
+    <select name="month"  required >
+     <option value="">Select Month</option>
+     <option value="January">January</option>
+     <option value="February">February</option>
+     <option value="March">March</option>
+     <option value="April">April</option>
+     <option value="May">May</option>
+     <option value="June">June</option>
+     <option value="July">July</option>
+     <option value="August">August</option>
+     <option value="September">September</option>
+     <option value="October">October</option>
+     <option value="November">November</option>
+     <option value="December">December</option>
+    </select>
+  <input type="text" name="university" placeholder="University" required />
+  <input type="text" name="education_consultant" placeholder="Educational Consultant" required />
+  <input type="number" name="semesters" placeholder="No of Semesters" required />
+  <input type="text" name="course" placeholder="Course" required />
+  <input type="number" name="student_ref_no" placeholder="Student Reference Number" required />
+  <input type="text" name="intake" placeholder="Intake" required />
+  <input type="number" name="scholarship" placeholder="Scholarship Amount" required />
+  
+  <input type="number" name="cashback_amt" placeholder="Cashback Amount" required />
+  <input type="number" name="referal_cashback" placeholder="Referal Cashback" required />
+  <input type="number" name="tuition_fee" placeholder="Tuition Fee" required />
+
+  <label>COE Issue Date:</label>
+  <input type="date" name="coe_issue_date" required />
+  
+  <label>Course Start Date:</label>
+  <input type="date" name="course_start_date" required />
+  
+  <label>Course End Date:</label>
+  <input type="date" name="course_end_date" required />
+  
+  <button type="submit">Add Info</button>
+</form>
+
+  </div>
+</body>
+</html>

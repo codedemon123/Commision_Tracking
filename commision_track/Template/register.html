@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Aussizz Group</title>
+    <link rel="stylesheet" href="{% static 'commision/register.css' %}">
+</head>
+
+<body>
+
+    {% if messages %}
+        <div id="flash-mess">
+            {% for message in messages %}
+                <div class="flash-mess {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="register-container">
+        <img src="{% static 'commision/logo-modified.png' %}" alt="Aussizz Group Logo" style="max-width: 200px; margin-bottom: 10px;">
+        <h2>Create Account</h2>
+
+        <form method="POST" action="/register/" onsubmit="return validatePasswords()">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <select name="role" required>
+                <option value="">Select Role</option>
+                <option value="Admissions">Admissions</option>
+                <option value="Accounts">Accounts</option>
+            </select>
+            <input type="password" name="password1" id="password1" placeholder="Password" required>
+            <input type="password" name="password2" id="password2" placeholder="Confirm Password" required>
+            <p id="password-error" class="error-message" style="display:none;">Passwords do not match.</p>
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="footer">
+            <p>Already have an account? <a href="/login/" style="color: #0066cc; text-decoration: none;">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Password validation
+        function validatePasswords() {
+            const pw1 = document.getElementById('password1').value;
+            const pw2 = document.getElementById('password2').value;
+            const error = document.getElementById('password-error');
+            if (pw1 !== pw2) {
+                error.style.display = 'block';
+                return false;
+            }
+            error.style.display = 'none';
+            return true;
+        }
+
+        // Flash message auto-hide after 2 seconds
+        window.onload = function () {
+            const flash = document.querySelector('#flash-mess');
+            if (flash) {
+                flash.style.position = 'fixed';
+                flash.style.top = '20px';
+                flash.style.left = '50%';
+                flash.style.transform = 'translateX(-50%)';
+                flash.style.zIndex = '1000';
+
+                setTimeout(() => {
+                    flash.style.transition = 'opacity 0.5s ease';
+                    flash.style.opacity = '0';
+                    setTimeout(() => {
+                        flash.remove();
+                    }, 500);
+                }, 2000);
+            }
+        };
+    </script>
+
+</body>
+</html>

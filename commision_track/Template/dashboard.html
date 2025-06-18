@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Commission Dashboard</title>
+  <link rel="stylesheet" href="{% static 'commision/style_dashboard.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h1>📊 Commission Dashboard</h1>
+      <p>Monthly Summary for {{ selected_month }} {{ selected_year }}</p>
+    </div>
+
+    <form method="get">
+      <select name="year">
+          {% for y in years %}
+              <option value="{{ y }}" {% if y == selected_year %}selected{% endif %}>{{ y }}</option>
+          {% endfor %}
+      </select>
+
+      <select name="month">
+          {% for m in months %}
+              <option value="{{ m }}" {% if m == selected_month %}selected{% endif %}>{{ m }}</option>
+          {% endfor %}
+      </select>
+
+      <button type="submit">Filter</button>
+    </form>
+
+    <div class="dashboard-cards">
+      <div class="card blue">
+        <h2>Admissions Performed</h2>
+        <div class="value">{{ entry_count }}</div>
+      </div>
+
+      <div class="card purple">
+        <h2>Estimated Commissions</h2>
+        <div class="value">₹{{ total_commission|floatformat:"2" }}</div>
+      </div>
+
+      <div class="card green">
+        <h2>Total Claimed</h2>
+        <div class="value">₹{{ total_claimed|floatformat:"2" }}</div>
+      </div>
+
+      <div class="card red">
+        <h2>Remaining to be Claimed</h2>
+        <div class="value">₹{{ remaining_amount|floatformat:"2" }}</div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <!-- Charts -->
+    <div class="dashboard-charts">
+     <div class="chart-box">
+       <canvas id="donutChart"></canvas>
+     </div>
+     <div class="chart-box">
+      <canvas id="studentDoughnutChart"></canvas>
+     </div>
+    </div>
+
+
+  <script>
+  const totalClaimed = {{ total_claimed|default:0 }};
+  const remainingAmount = {{ remaining_amount|default:0 }};
+  const totalCommission = {{ total_commission|default:0 }};
+
+  // Doughnut Chart
+  new Chart(document.getElementById("donutChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["Claimed", "Remaining"],
+      datasets: [{
+        data: [totalClaimed, remainingAmount],
+        backgroundColor: ["#66bb6a", "#ef5350"],
+      }]
+    },
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: "Claimed vs Remaining",
+          font: { size: 16 }
+        }
+      }
+    }
+  });
+
+
+  // 🔄 Remaining Amount per Student (labels + values passed from backend)
+  const studentNames = {{ student_names_json|safe }};
+  const studentAmounts = {{ remaining_amounts_json|safe }};
+
+  new Chart(document.getElementById("studentDoughnutChart"), {
+  type: 'doughnut',
+  data: {
+    labels: studentNames,
+    datasets: [{
+      label: '₹ Remaining',
+      data: studentAmounts,
+      backgroundColor: [
+        '#42a5f5', '#66bb6a', '#ffa726', '#ab47bc',
+        '#26c6da', '#ef5350', '#ffca28', '#7e57c2'
+      ],
+    }]
+  },
+  options: {
+    plugins: {
+      title: {
+        display: true,
+        text: 'Remaining Amount per Student',
+        font: { size: 16 }
+      },
+      legend: {
+        position: 'right'
+      }
+    },
+    responsive: true
+  }
+});
+
+</script>
+
+</body>
+</html>
